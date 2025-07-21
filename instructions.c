@@ -6,13 +6,13 @@
 /*   By: louis <louis@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:57:03 by laudinot          #+#    #+#             */
-/*   Updated: 2025/07/21 10:57:35 by louis            ###   ########.fr       */
+/*   Updated: 2025/07/21 15:30:40 by louis            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_swap(t_stack **head)
+void	ft_swap(t_stack **head, char id)
 {
 	int	tmp;
 
@@ -21,9 +21,13 @@ void	ft_swap(t_stack **head)
 	tmp = (*head)->value;
 	(*head)->value = (*head)->next->value;
 	(*head)->next->value = tmp;
+	if (id == 'a')
+		write(1, "sa\n", 3);
+	else if (id == 'b')
+		write(1, "sb\n", 3);
 }
 
-void	ft_rotate(t_stack **head, t_stack **tail)
+void	ft_rotate(t_stack **head, t_stack **tail, char id)
 {
 	t_stack	*tmp;
 
@@ -34,11 +38,17 @@ void	ft_rotate(t_stack **head, t_stack **tail)
 	tmp->next = NULL;
 	ft_lstadd_back1(head, tmp);
 	*tail = tmp;
+	if (id == 'a')
+		write(1, "ra\n", 3);
+	else if (id == 'b')
+		write(1, "rb\n", 3);
 }
-void	ft_reverse_rotate(t_stack **head, t_stack **tail)
+void	ft_reverse_rotate(t_stack **head, t_stack **tail, char id)
 {
 	t_stack	*tmp;
 
+	if (*head == *tail)
+		return;
 	tmp = *tail;
 	if ((*tail)->prev)
 		(*tail)->prev->next = NULL;
@@ -48,9 +58,13 @@ void	ft_reverse_rotate(t_stack **head, t_stack **tail)
 	tmp->prev = NULL;
 	(*head)->prev = tmp;
 	*head = tmp;
+	if (id == 'a')
+		write(1, "rra\n", 4);
+	else if (id == 'b')
+		write(1, "rrb\n", 4);
 }
 
-void	ft_push(t_stack **head_source, t_stack **tail_source, t_stack **head_dest, t_stack **tail_dest)
+void	ft_push(t_stack **head_source, t_stack **tail_source, t_stack **head_dest, t_stack **tail_dest, char id)
 {
 	t_stack	*tmp;
 
@@ -64,90 +78,10 @@ void	ft_push(t_stack **head_source, t_stack **tail_source, t_stack **head_dest, 
 		(*head_dest)->prev = tmp;
 	tmp->next = *head_dest;
 	if (!*tail_dest)
-		tail_dest = tmp;
+		*tail_dest = tmp;
 	*head_dest = tmp;
-
+	if (id == 'a')
+		write(1, "pa\n", 3);
+	else if (id == 'b')
+		write(1, "pb\n", 3);
 }
-// int	push(t_stack **stack_source, t_stack **stack_dest) // pa
-// {
-// 	t_stack *tmp;
-
-// 	tmp = NULL;
-// 	if (!(*stack_source))
-// 		return (1);
-// 	tmp = *stack_source;
-// 	*stack_source = (*stack_source)->next;
-// 	if (*stack_source)
-// 		(*stack_source)->prev = NULL;
-// 	tmp->next = *stack_dest;
-// 	if (*stack_dest)
-// 		(*stack_dest)->prev = tmp;
-// 	*stack_dest = tmp;
-// 	tmp->prev = NULL;
-// 	return (0);
-// }
-// int    swap(t_stack **head)
-// {
-//     t_stack    *tmp;
-//     t_stack    *tmp_next;
-
-//     if (!(*head) || !(*head)->next)
-//         return (1);
-//     tmp = (*head);
-//     tmp_next = tmp->next;
-//     tmp->next = tmp_next->next;
-//     tmp_next->next = tmp;
-//     tmp_next->prev = NULL;
-//     tmp->prev = tmp_next;
-//     if (tmp->next != NULL)
-//         tmp->next->prev = tmp;
-//     *head = tmp_next;
-//     return (0);
-// }
-// int    push(t_stack **head_source, t_stack **head_dest)
-// {
-//     t_stack *tmp;
-
-//     if (!(*head_source))
-//         return (1);
-//     tmp = *head_source;
-//     *head_source = (*head_source)->next;
-//     if (*head_source)
-//         (*head_source)->prev = NULL;
-//     tmp->next = *head_dest;
-//     if (*head_dest)
-//         (*head_dest)->prev = tmp;
-//     *head_dest = tmp;
-//     tmp->prev = NULL;
-//     return (0);
-// }
-// int    rotate(t_stack **head, t_stack **tail)
-// {
-//     t_stack    *tmp;
-
-//     if (!(*head) || !(*head)->next)
-//         return (1);
-//     tmp = *head;
-//     *head = (*head)->next;
-//     (*head)->prev = NULL;
-//     (*tail)->next = tmp;
-//     *tail = (*tail)->next;
-//     (*tail)->next = NULL;
-//     (*tail)->prev = tmp;
-//     return (0);
-// }
-// int    reverse_rotate(t_stack **head, t_stack **tail)
-// {
-//     t_stack *tmp;
-
-//     if (!(*head) || !(*head)->next)
-//         return (1);
-//     tmp = *tail;
-//     *tail = (*tail)->prev;
-//     (*tail)->next = NULL;
-//     tmp->prev = NULL;
-//     tmp->next = *head;
-//     (*head)->prev = tmp;
-//     *head = tmp;
-//     return (0);
-// }

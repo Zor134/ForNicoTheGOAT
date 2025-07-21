@@ -8,7 +8,7 @@ LIBFT_DIR = ./libft
 INCLUDES = -I$(LIBFT_DIR) -I.
 
 # Fichiers sources
-SRCS = $(SRC_DIR)/main.c instructions.c check_error.c
+SRCS = $(SRC_DIR)/main.c instructions.c  cross_instructions.c parsing.c
 
 # Objets
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
